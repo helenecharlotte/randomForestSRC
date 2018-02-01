@@ -315,9 +315,9 @@ double getCustomSplitStatisticMultivariateRegressionGamma (unsigned int n,
   // rghtFrac = rghtSize / ((double) n);
   
   if ((leftFrac == 0.0) || (rghtFrac == 0.0)) {
-    return leftFrac; 
+    return rghtFrac; 
   } else {  
-    return leftFrac; 
+    return rghtFrac; 
   }
 }
 
