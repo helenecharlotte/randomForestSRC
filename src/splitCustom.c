@@ -269,6 +269,7 @@ double getCustomSplitStatisticMultivariateRegressionGamma (unsigned int n,
   double sumLeft, sumRght;
   double sumLeftSqr, sumRghtSqr;
   double delta;
+  double leftFrac, rghtFrac;
   
   // Left and right normalization sizes.
   unsigned int leftSize, rghtSize;
@@ -278,6 +279,7 @@ double getCustomSplitStatisticMultivariateRegressionGamma (unsigned int n,
   // Initialization of local variables:
   sumLeft = sumRght = 0.0;
   leftSize = rghtSize = 0;
+  leftFrac = rghtFrac = 0.0;
   
   delta = 0.0;
   
@@ -292,11 +294,13 @@ double getCustomSplitStatisticMultivariateRegressionGamma (unsigned int n,
     if (membership[i] == LEFT) {
       // Add the left member to the sum.
       sumLeft += response[i] - mean;
+      leftFrac += response[i] / ((double) n);
       leftSize ++;
     }
     else {
       // Add the right member to the sum.
       sumRght += response[i] - mean;
+      rghtFrac += response[i] / ((double) n);
       rghtSize ++;
     }
   }
@@ -307,7 +311,14 @@ double getCustomSplitStatisticMultivariateRegressionGamma (unsigned int n,
   
   delta = sumLeftSqr + sumRghtSqr;
   
-  return delta;
+  // leftFrac = leftSize / ((double) n);
+  // rghtFrac = rghtSize / ((double) n);
+  
+  if ((leftFrac == 0.0) || (rghtFrac == 0.0)) {
+    delta = 0.0; 
+  }
+  
+  return delta; 
 }
 
 
